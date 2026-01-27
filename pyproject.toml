@@ -1,0 +1,16 @@
+[project]
+name = "frida-ipa-extract"
+version = "0.1.0"
+description = "Extract decrypted IPAs from jailbroken iOS devices using Frida"
+requires-python = ">=3.9"
+dependencies = [
+    "frida>=16.0.0",
+    "paramiko>=3.0.0",
+]
+
+[project.scripts]
+frida-ipa-extract = "frida_ipa_extract.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
