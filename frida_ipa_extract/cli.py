@@ -283,7 +283,11 @@ def main():
         if not bundle_path or not executable_name:
             raise SystemExit("Unable to resolve bundle path or executable name.")
         dump_dir = bundle_id or sanitize_filename(app_name)
-        remote_dump_path = f"/tmp/frida-ipa-extract/{dump_dir}/{executable_name}.decrypted"
+        
+        sandbox_path = dumper.get_sandbox_path()
+        if not sandbox_path:
+            raise SystemExit("Unable to resolve sandbox path.")
+        remote_dump_path = f"{sandbox_path}/tmp/{dump_dir}/{executable_name}.decrypted"
 
         print(f"Bundle ID: {bundle_id or 'unknown'}")
         print(f"Bundle path: {bundle_path}")
@@ -296,9 +300,6 @@ def main():
         sandbox_path = None
         sandbox_out_dir = None
         if args.sandbox:
-            sandbox_path = dumper.get_sandbox_path()
-            if not sandbox_path:
-                raise SystemExit("Unable to resolve sandbox path.")
             sandbox_out_dir = f"{sanitize_filename(app_name)}-sandbox"
             if os.path.exists(sandbox_out_dir):
                 raise SystemExit(
