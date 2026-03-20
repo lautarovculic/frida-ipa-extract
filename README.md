@@ -7,21 +7,26 @@ Extract a decrypted `.ipa` from a jailbroken iOS device using Frida. Supports ap
 ## Requirements
 
 - Python 3.9+
-- `frida` and `paramiko`
 - Jailbroken iOS device with `frida-server` running
 - For SSH mode: OpenSSH on the device
 
-Install dependencies:
+Installation:
 
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
+# Install as a standalone tool using uv or pipx
+uv tool install git+https://github.com/lautarovculic/frida-ipa-extract.git
+
+# Or install as an editable package (for development)
+pip install -e .
 ```
 
 ## Usage
 
 ```bash
+# Using the entry point (if installed as standalone tool)
+frida-ipa-extract
+
+# Or using the script directly
 python extract.py -U -f com.example.app -o MyApp.ipa
 python extract.py -U -f com.example.app -o MyApp.ipa --sandbox
 python extract.py -U -f com.example.app -o MyApp.ipa --no-resume
